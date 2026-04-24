@@ -18,3 +18,11 @@ Entities -
     -Payment Methods
 -Cart
 -Order
+
+
+{
+  "id": 1,
+  "name": "dkt",
+  "password": "dkt",
+  "role": "member"
+}

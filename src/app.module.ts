@@ -8,6 +8,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { CatsResolver } from './cats/cats.resolver';
+import { PrismaService } from './prisma/prisma.service';
+import { RestaurantsModule } from './restaurants/restaurants.module';
+import { OrderService } from './order/order.service';
 
 @Module({
   imports: [AuthModule,
@@ -16,8 +19,9 @@ import { CatsResolver } from './cats/cats.resolver';
       autoSchemaFile: join(process.cwd(),'src/schema.gql')
     }),
     UsersModule,
+    RestaurantsModule,
   ],
   controllers: [AppController],
-  providers: [AppService,CatService, CatsResolver],
+  providers: [AppService,CatService, CatsResolver, PrismaService, OrderService],
 })
 export class AppModule {}

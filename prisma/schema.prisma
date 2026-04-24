@@ -4,10 +4,77 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "sqlite"
 }
+
+model Cat {
+  id    Int    @id @default(autoincrement())
+  name  String
+  age   Int
+  breed String
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String  @unique
+  password String
+  role     String
+}
+
+model Restaurant {
+  id     Int     @id @default(autoincrement())
+  name   String
+  Menus  Menu[]
+  orders Order[]
+  carts  Cart[]
+}
+
+model Menu {
+  id           Int         @id @default(autoincrement())
+  items        Item[]
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  restaurantId Int?
+}
+
+model Item {
+  id    Int    @id @default(autoincrement())
+  name  String
+  price Int
+
+  menus  Menu[]
+  orders Order[]
+  carts  Cart[]
+}
+
+
+enum PaymentMethod{
+  CARD
+  CASH
+  UPI
+}
+
+model Order {
+  id            Int        @id @default(autoincrement())
+  Items         Item[]
+  restaurantId  Int
+  cost          Int @default(0)
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+  completed     Boolean    @default(false)
+  paymentMethod PaymentMethod @default(CASH)
+}
+
+model Cart {
+  id            Int        @id @default(autoincrement())
+  Items         Item[]
+  restaurantId  Int
+  cost          Int
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+  paymentMethod String
+}
+
