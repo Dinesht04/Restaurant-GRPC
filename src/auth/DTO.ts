@@ -1,14 +1,14 @@
-import {IsString, IsNotEmpty, isNotEmpty, IsEnum} from 'class-validator'
+import { IsString, IsNotEmpty, isNotEmpty, IsEnum } from 'class-validator';
 
 enum role {
-    admin = "admin",
-    manager = "manager",
-    member = "member",
+  admin = 'admin',
+  manager = 'manager',
+  member = 'member',
 }
 
-enum country{
-    us = "us",
-    india = "india"
+enum country {
+  us = 'us',
+  india = 'india',
 }
 
 export class SignInReq {
@@ -19,9 +19,9 @@ export class SignInReq {
   @IsNotEmpty()
   @IsString()
   password: string;
-};
+}
 
-export class SignUpReq  {
+export class SignUpReq {
   @IsNotEmpty()
   @IsString()
   username: string;
@@ -37,4 +37,4 @@ export class SignUpReq  {
   @IsEnum(country)
   @IsNotEmpty()
   country: country;
-};
+}

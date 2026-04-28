@@ -14,7 +14,7 @@ export class ManagerGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-      let request;
+    let request;
 
     if (context.getType<string>() === 'graphql') {
       const gqlContext = GqlExecutionContext.create(context);
@@ -29,7 +29,7 @@ export class ManagerGuard implements CanActivate {
     try {
       const payload = await this.jwtService.verifyAsync(token);
       console.log(payload);
-      if (payload['role'] !== 'manager' || payload['role'] !== "admin") {
+      if (payload['role'] !== 'manager' || payload['role'] !== 'admin') {
         throw new UnauthorizedException();
       } else {
         request['user'] = payload;

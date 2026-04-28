@@ -22,7 +22,7 @@ import {
   ExecutionContext,
 } from '@nestjs/common';
 import { Country } from 'generated/prisma/enums';
-import type  Request from 'express';
+import type Request from 'express';
 import { ManagerGuard } from 'src/auth/guards/auth.manager.guard';
 import { AdminGuard } from 'src/auth/guards/auth.admin.guard';
 
@@ -38,7 +38,7 @@ export class RestaurantsResolver {
   @UseGuards(AuthGuard)
   @Query(() => [Restaurant])
   findAll(@Context('req') req: Request) {
-    const country = req["user"].country as Country;
+    const country = req['user'].country as Country;
     return this.restaurantService.getAllRestaurants(country);
   }
 
@@ -46,8 +46,9 @@ export class RestaurantsResolver {
   @Mutation(() => Order)
   createOrder(
     @Args('createOrderInput') data: createOrderInput,
-    @Context('req') req: Request) {
-    const country = req["user"].country as Country;
+    @Context('req') req: Request,
+  ) {
+    const country = req['user'].country as Country;
     return this.orderService.CreateOrder(data, country);
   }
 
@@ -55,8 +56,9 @@ export class RestaurantsResolver {
   @Mutation(() => Order)
   addItemToOrder(
     @Args('addOrderInput') data: addToOrder,
-    @Context('req') req: Request) {
-    const country = req["user"].country as Country;
+    @Context('req') req: Request,
+  ) {
+    const country = req['user'].country as Country;
     return this.orderService.addToOrder(data, country);
   }
 
@@ -64,8 +66,9 @@ export class RestaurantsResolver {
   @Mutation(() => Order)
   checkoutOrder(
     @Args('checkoutOrderInput') data: checkoutInput,
-    @Context('req') req: Request) {
-    const country = req["user"].country as Country;
+    @Context('req') req: Request,
+  ) {
+    const country = req['user'].country as Country;
     return this.orderService.checkout(data, country);
   }
 
@@ -73,8 +76,9 @@ export class RestaurantsResolver {
   @Mutation(() => Order)
   cancelOrder(
     @Args('cancelOrderInput') data: cancelOrderInput,
-    @Context('req') req: Request) {
-    const country = req["user"].country as Country;
+    @Context('req') req: Request,
+  ) {
+    const country = req['user'].country as Country;
     return this.orderService.cancelOrder(data, country);
   }
 
@@ -82,8 +86,9 @@ export class RestaurantsResolver {
   @Mutation(() => Order)
   modifyPaymentMethod(
     @Args('modifyPaymentMethod') data: ModifyPaymentMethodInput,
-   @Context('req') req: Request) {
-    const country = req["user"].country as Country;
+    @Context('req') req: Request,
+  ) {
+    const country = req['user'].country as Country;
     return this.orderService.ModifyPaymentMethod(data, country);
   }
 }

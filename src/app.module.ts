@@ -22,10 +22,6 @@ import { OrderService } from './order/order.service';
     RestaurantsModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    PrismaService,
-    OrderService,
-  ],
+  providers: [AppService, PrismaService, OrderService],
 })
 export class AppModule {}

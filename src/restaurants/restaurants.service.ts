@@ -31,9 +31,9 @@ export class RestaurantsService {
       include: {
         Menus: {
           include: {
-            items: true
-          }
-        }
+            items: true,
+          },
+        },
       },
       where: {
         country: country,

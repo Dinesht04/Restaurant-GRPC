@@ -12,7 +12,6 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { SignInReq, SignUpReq } from './DTO';
 
-
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

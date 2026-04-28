@@ -17,7 +17,12 @@ export class AuthService {
       console.log(username, password);
       throw new UnauthorizedException();
     }
-    const payload = { id: user.id, username: user.name, role: user.role, country: user.country};
+    const payload = {
+      id: user.id,
+      username: user.name,
+      role: user.role,
+      country: user.country,
+    };
     return {
       access_token: await this.JWTService.signAsync(payload),
     };

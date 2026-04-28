@@ -18,8 +18,8 @@ export class OrderService {
         country: country,
       },
       include: {
-        items: true
-      }
+        items: true,
+      },
     });
   }
 
@@ -34,7 +34,7 @@ export class OrderService {
       throw new BadRequestException('This order doesnt exist in this region');
     }
 
-    if(order.completed === true){
+    if (order.completed === true) {
       throw new BadRequestException('Order has already been fulfilled');
     }
 
@@ -58,8 +58,8 @@ export class OrderService {
         cost: order.cost + item.price,
       },
       include: {
-        items: true
-      }
+        items: true,
+      },
     });
 
     return updatedOrder;
@@ -67,24 +67,22 @@ export class OrderService {
 
   async checkout(data: checkoutInput, country: Country) {
     try {
-      
       const order = await this.prismaService.order.findUnique({
-      where: {
-        id: data.orderId,
-      },
+        where: {
+          id: data.orderId,
+        },
       });
       if (!order) {
         throw new BadRequestException('This order doesnt exist');
       }
 
-      if(order.country !== country){
+      if (order.country !== country) {
         throw new BadRequestException('This order doesnt exist in this region');
       }
 
-      if(order.completed === true){
-      throw new BadRequestException('Order has already been fulfilled');
-    }
-
+      if (order.completed === true) {
+        throw new BadRequestException('Order has already been fulfilled');
+      }
 
       const checkout = await this.prismaService.order.update({
         where: {
@@ -95,8 +93,8 @@ export class OrderService {
           completed: true,
         },
         include: {
-          items: true
-        }
+          items: true,
+        },
       });
       console.log(checkout);
       return checkout;
@@ -106,61 +104,56 @@ export class OrderService {
   }
 
   async cancelOrder(data: cancelOrderInput, country: Country) {
-    try{
+    try {
       const order = await this.prismaService.order.findUnique({
-      where: {
-        id: data.orderId,
-      },
+        where: {
+          id: data.orderId,
+        },
       });
       if (!order) {
         throw new BadRequestException('This order doesnt exist');
       }
 
-      if(order.country !== country){
+      if (order.country !== country) {
         throw new BadRequestException('This order doesnt exist in this region');
       }
 
-      if(order.completed === true){
-      throw new BadRequestException('Order has already been fulfilled');
-    }
+      if (order.completed === true) {
+        throw new BadRequestException('Order has already been fulfilled');
+      }
 
-
-      
       return await this.prismaService.order.delete({
         where: {
           id: data.orderId,
           country: country,
         },
         include: {
-          items: true
-        }
+          items: true,
+        },
       });
     } catch (e) {
-
       throw new BadRequestException(e);
     }
   }
 
   async ModifyPaymentMethod(data: ModifyPaymentMethodInput, country: Country) {
     try {
-
       const order = await this.prismaService.order.findUnique({
-      where: {
-        id: data.orderId,
-      },
+        where: {
+          id: data.orderId,
+        },
       });
       if (!order) {
         throw new BadRequestException('This order doesnt exist');
       }
 
-      if(order.country !== country){
+      if (order.country !== country) {
         throw new BadRequestException('This order doesnt exist in this region');
       }
 
-      if(order.completed === true){
-      throw new BadRequestException('Order has already been fulfilled');
-    }
-
+      if (order.completed === true) {
+        throw new BadRequestException('Order has already been fulfilled');
+      }
 
       return await this.prismaService.order.update({
         where: {
@@ -171,8 +164,8 @@ export class OrderService {
           paymentMethod: data.paymentMethod,
         },
         include: {
-          items: true
-        }
+          items: true,
+        },
       });
     } catch (e) {
       throw new BadRequestException(e);
